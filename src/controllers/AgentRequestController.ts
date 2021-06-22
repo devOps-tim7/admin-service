@@ -9,9 +9,14 @@ import UserService from '../services/UserService';
 const createRequest = async (req: CustomRequest, res: Response) => {
   const { website, email } = req.body;
   const user = await User.findOne(req.user.id);
-  const agentRequest = new AgentRequest({ user, website, email });
-  const savedAgentRequest = await agentRequest.save();
-  res.status(201).send(savedAgentRequest);
+  const existingRequest = await AgentRequest.findOne({ user });
+  if (existingRequest) {
+    res.status(201).send(existingRequest);
+  } else {
+    const agentRequest = new AgentRequest({ user, website, email });
+    const savedAgentRequest = await agentRequest.save();
+    res.status(201).send(savedAgentRequest);
+  }
 };
 
 const getRequests = async (_req: Request, res: Response) => {
