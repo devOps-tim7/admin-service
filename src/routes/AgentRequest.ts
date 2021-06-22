@@ -4,8 +4,8 @@ import loggedIn from '../middleware/Auth';
 
 const router = express.Router();
 
-router.get('/', AgentRequestController.getRequests);
+router.get('/', loggedIn, AgentRequestController.getRequests);
 router.post('/', loggedIn, AgentRequestController.createRequest);
-router.post('/:id/:approve', AgentRequestController.handleRequest);
+router.post('/:id/:approve', loggedIn, AgentRequestController.handleRequest);
 
 export default router;

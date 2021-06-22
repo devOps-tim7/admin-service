@@ -8,7 +8,7 @@ import PostService from '../services/PostService';
 import UserService from '../services/UserService';
 
 const getAll = async (_req: Request, res: Response) => {
-  const reports = await Report.find();
+  const reports = await Report.find({ relations: ['post', 'post.user'] });
   res.status(200).send(reports);
 };
 const createReport = async (req: Request, res: Response) => {

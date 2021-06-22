@@ -11,10 +11,14 @@ export default class User extends BaseEntity {
   @Column({ default: '' })
   fullName: string;
 
-  constructor(user?: { id: string; banned: boolean; fullName: string }) {
+  @Column({ unique: true })
+  username: string;
+
+  constructor(user?: { id: string; username: string; banned: boolean; fullName: string }) {
     super();
     this.id = user?.id;
     this.banned = user?.banned;
     this.fullName = user?.fullName;
+    this.username = user?.username;
   }
 }
