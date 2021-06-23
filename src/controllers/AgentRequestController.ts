@@ -27,7 +27,6 @@ const getRequests = async (_req: Request, res: Response) => {
 const handleRequest = async (req: Request, res: Response) => {
   const approve = req.params.approve;
   const user = await User.findOne(req.params.id);
-
   if (!user) {
     throw new HttpException(404, [new PropertyError('base', 'User not found!')]);
   }
